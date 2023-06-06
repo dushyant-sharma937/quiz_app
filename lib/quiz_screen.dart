@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/api_services.dart';
 import 'package:quiz_app/const/colors.dart';
 import 'package:quiz_app/const/text_style.dart';
-
-import 'const/images.dart';
+import 'package:quiz_app/result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -19,7 +18,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int seconds = 60;
   Timer? timer;
   late Future quiz;
-  int points = 0;
+  int point = 0;
   var currentQuestionIndex = 0;
   var isLoaded = false;
   var optionList = [];
@@ -204,7 +203,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   if (answer.toString() ==
                                       optionList[index].toString()) {
                                     optionColor[index] = Colors.green;
-                                    points += 10;
+                                    point += 10;
                                   } else {
                                     optionColor[index] = Colors.red;
                                   }
@@ -220,6 +219,14 @@ class _QuizScreenState extends State<QuizScreen> {
                                       startTimer();
                                     });
                                   } else {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ResultScreen(
+                                                  points: point.toString(),
+                                                  length: (data.length * 10)
+                                                      .toString(),
+                                                )));
                                     timer!.cancel();
                                   }
                                 });
