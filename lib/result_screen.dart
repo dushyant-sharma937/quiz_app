@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:quiz_app/const/colors.dart';
 import 'package:quiz_app/const/text_style.dart';
 import 'package:quiz_app/main.dart';
@@ -38,8 +39,11 @@ class ResultScreen extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => quizApp()));
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: quizApp(),
+                          type: PageTransitionType.leftToRight));
                 },
                 icon: const Icon(
                   CupertinoIcons.back,

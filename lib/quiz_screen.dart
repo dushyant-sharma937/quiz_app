@@ -1,10 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:quiz_app/api_services.dart';
 import 'package:quiz_app/const/colors.dart';
 import 'package:quiz_app/const/text_style.dart';
+import 'package:quiz_app/main.dart';
 import 'package:quiz_app/result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -29,6 +31,7 @@ class _QuizScreenState extends State<QuizScreen> {
     Colors.white,
     Colors.white,
   ];
+  bool isLiked = false;
 
   @override
   void initState() {
@@ -62,6 +65,7 @@ class _QuizScreenState extends State<QuizScreen> {
     timer!.cancel();
     seconds = 60;
     startTimer();
+    isLiked = false;
   }
 
   resetColors() {
@@ -119,7 +123,12 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                               child: IconButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          child: quizApp(),
+                                          type:
+                                              PageTransitionType.leftToRight));
                                 },
                                 icon: const Icon(
                                   CupertinoIcons.back,
@@ -137,12 +146,22 @@ class _QuizScreenState extends State<QuizScreen> {
                                 border: Border.all(color: lightGrey, width: 2),
                               ),
                               child: TextButton.icon(
-                                onPressed: null,
-                                icon: const Icon(
-                                  CupertinoIcons.heart_circle_fill,
-                                  color: Colors.white,
-                                  size: 18,
-                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isLiked = !isLiked;
+                                  });
+                                },
+                                icon: isLiked
+                                    ? const Icon(
+                                        CupertinoIcons.heart_fill,
+                                        color: Colors.white,
+                                        size: 20,
+                                      )
+                                    : const Icon(
+                                        CupertinoIcons.heart,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
                                 label: normalText(
                                     color: Colors.white,
                                     size: 14,
@@ -152,7 +171,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.06,
+                          height: MediaQuery.of(context).size.height * 0.04,
                         ),
                         Stack(alignment: Alignment.center, children: [
                           normalText(
@@ -200,6 +219,14 @@ class _QuizScreenState extends State<QuizScreen> {
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
+                                  int newindex = 0;
+                                  for (int i = 0; i < optionList.length; i++) {
+                                    if (answer.toString() ==
+                                        optionList[i].toString()) {
+                                      newindex = i;
+                                    }
+                                  }
+                                  optionColor[newindex] = Colors.green;
                                   if (answer.toString() ==
                                       optionList[index].toString()) {
                                     optionColor[index] = Colors.green;
@@ -217,16 +244,20 @@ class _QuizScreenState extends State<QuizScreen> {
                                       timer!.cancel();
                                       seconds = 60;
                                       startTimer();
+                                      isLiked = false;
                                     });
                                   } else {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ResultScreen(
-                                                  points: point.toString(),
-                                                  length: (data.length * 10)
-                                                      .toString(),
-                                                )));
+                                      context,
+                                      PageTransition(
+                                          child: ResultScreen(
+                                            points: point.toString(),
+                                            length:
+                                                (data.length * 10).toString(),
+                                          ),
+                                          type: PageTransitionType.bottomToTop),
+                                    );
+
                                     timer!.cancel();
                                   }
                                 });
@@ -256,10 +287,10 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   );
                 } else {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                    ),
+                  return LoadingAnimationWidget.flickr(
+                    leftDotColor: const Color.fromRGBO(1, 213, 225, 1),
+                    rightDotColor: Colors.yellow,
+                    size: 50,
                   );
                 }
               }),
