@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/const/colors.dart';
 import 'package:quiz_app/const/text_style.dart';
 import 'package:quiz_app/main.dart';
-import 'package:quiz_app/quiz_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   final String points;
