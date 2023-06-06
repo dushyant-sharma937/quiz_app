@@ -137,8 +137,13 @@ class _QuizScreenState extends State<QuizScreen> {
                                 ),
                               ),
                             ),
-                            Image.asset(
-                              "assets/images/icons8-idea-100.png",
+                            SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.13,
+                              width: MediaQuery.of(context).size.width * 0.13,
+                              child: Image.asset(
+                                "assets/images/icons8-idea-100.png",
+                                fit: BoxFit.contain,
+                              ),
                             ),
                             Container(
                               decoration: BoxDecoration(
@@ -255,7 +260,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                             length:
                                                 (data.length * 10).toString(),
                                           ),
-                                          type: PageTransitionType.bottomToTop),
+                                          type: PageTransitionType.fade,
+                                          duration: const Duration(seconds: 1)),
                                     );
 
                                     timer!.cancel();
