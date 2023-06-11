@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, avoid_types_as_parameter_names, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/const/colors.dart';
 import 'package:quiz_app/const/text_style.dart';
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: quizApp(),
+      home: const quizApp(),
       theme: ThemeData(fontFamily: "quick"),
       title: "Demo",
       debugShowCheckedModeBanner: false,
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
 }
 
 class quizApp extends StatefulWidget {
-  quizApp({super.key});
+  const quizApp({super.key});
 
   @override
   State<quizApp> createState() => _quizAppState();

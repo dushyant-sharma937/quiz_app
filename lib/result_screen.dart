@@ -42,7 +42,7 @@ class ResultScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: quizApp(),
+                          child: const quizApp(),
                           type: PageTransitionType.leftToRight));
                 },
                 icon: const Icon(

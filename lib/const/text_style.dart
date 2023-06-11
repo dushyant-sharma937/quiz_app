@@ -12,7 +12,8 @@ Widget normalText({
       fontSize: size,
       color: color,
     ),
-    textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: true),
+    textHeightBehavior:
+        const TextHeightBehavior(applyHeightToFirstAscent: true),
   );
 }
 

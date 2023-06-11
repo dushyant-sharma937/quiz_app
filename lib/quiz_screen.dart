@@ -128,7 +128,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   Navigator.push(
                                       context,
                                       PageTransition(
-                                          child: quizApp(),
+                                          child: const quizApp(),
                                           type:
                                               PageTransitionType.leftToRight));
                                 },
