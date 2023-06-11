@@ -28,57 +28,67 @@ class ResultScreen extends StatelessWidget {
             ],
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          child: const quizApp(),
-                          type: PageTransitionType.leftToRight));
-                },
-                icon: const Icon(
-                  CupertinoIcons.back,
-                  color: Colors.white,
-                  size: 28,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: lightGrey, width: 2),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: const quizApp(),
+                              type: PageTransitionType.leftToRight));
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.back,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            Image.asset(
-              "assets/images/brain.png",
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              height: 300,
-              width: 300,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: headingText(
-                  text:
-                      "\nCongratulations, your total score is:\n\n\t\t\t\t\t\t\t\t\t\t\t\t$points / $length",
-                  size: 32,
-                  color: Colors.white),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: normalText(
-                  text: "Keep grinding champ!", size: 18, color: lightGrey),
-            ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
+              Image.asset(
+                "assets/images/brain.png",
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                height: 300,
+                width: 300,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: headingText(
+                    text:
+                        "\nCongratulations, your total score is:\n\n\t\t\t\t\t\t\t\t\t\t\t\t$points / $length",
+                    size: 32,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: normalText(
+                    text: "Keep grinding champ!", size: 18, color: lightGrey),
+              ),
+            ],
+          ),
         ),
       ),
     );
