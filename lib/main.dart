@@ -36,15 +36,16 @@ class _quizAppState extends State<quizApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1300));
     animation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: const Interval(0.3, 1.0, curve: Curves.decelerate)));
     delayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: const Interval(0.3, 1.0, curve: Curves.decelerate)));
-    muchDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.decelerate));
+    muchDelayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
+        parent: animationController,
+        curve: const Interval(0.3, 1.0, curve: Curves.decelerate)));
     animationController.forward();
   }
 
@@ -119,7 +120,7 @@ class _quizAppState extends State<quizApp> with SingleTickerProviderStateMixin {
                   const Spacer(),
                   Transform(
                     transform: Matrix4.translationValues(
-                        0, muchDelayedAnimation.value * height, 0),
+                        muchDelayedAnimation.value * height, 0, 0),
                     child: const GradientButton(),
                   ),
                   // SizedBox(height: MediaQuery.of(context).size.height * 0.05),

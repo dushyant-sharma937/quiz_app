@@ -117,6 +117,8 @@ class _QuizScreenState extends State<QuizScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
+                              height: 45,
+                              width: 45,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(color: lightGrey, width: 2),
@@ -133,7 +135,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                 icon: const Icon(
                                   CupertinoIcons.back,
                                   color: Colors.white,
-                                  size: 28,
+                                  size: 25,
                                 ),
                               ),
                             ),
@@ -146,8 +148,9 @@ class _QuizScreenState extends State<QuizScreen> {
                               ),
                             ),
                             Container(
+                              height: 45,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(13),
                                 border: Border.all(color: lightGrey, width: 2),
                               ),
                               child: TextButton.icon(
@@ -224,6 +227,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
+                                  timer!.cancel();
                                   int newindex = 0;
                                   for (int i = 0; i < optionList.length; i++) {
                                     if (answer.toString() ==
