@@ -17,6 +17,7 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  bool _isSelected = false;
   int seconds = 60;
   Timer? timer;
   late Future quiz;
@@ -59,6 +60,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   gotoNextQuestion() {
+    _isSelected = false;
     isLoaded = false;
     currentQuestionIndex++;
     resetColors();
@@ -226,51 +228,51 @@ class _QuizScreenState extends State<QuizScreen> {
 
                             return GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  timer!.cancel();
-                                  int newindex = 0;
-                                  for (int i = 0; i < optionList.length; i++) {
-                                    if (answer.toString() ==
-                                        optionList[i].toString()) {
-                                      newindex = i;
-                                    }
-                                  }
-                                  optionColor[newindex] = Colors.green;
-                                  if (answer.toString() ==
-                                      optionList[index].toString()) {
-                                    optionColor[index] = Colors.green;
-                                    point += 10;
-                                  } else {
-                                    optionColor[index] = Colors.red;
-                                  }
-
-                                  if (currentQuestionIndex < data.length - 1) {
-                                    Future.delayed(const Duration(seconds: 1),
-                                        () {
-                                      currentQuestionIndex++;
-                                      isLoaded = false;
-                                      resetColors();
-                                      timer!.cancel();
-                                      seconds = 60;
-                                      startTimer();
-                                      isLiked = false;
-                                    });
-                                  } else {
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          child: ResultScreen(
-                                            points: point.toString(),
-                                            length:
-                                                (data.length * 10).toString(),
-                                          ),
-                                          type: PageTransitionType.fade,
-                                          duration: const Duration(seconds: 1)),
-                                    );
-
+                                if (_isSelected == false) {
+                                  setState(() {
+                                    _isSelected = true;
                                     timer!.cancel();
-                                  }
-                                });
+                                    int newindex = 0;
+                                    for (int i = 0;
+                                        i < optionList.length;
+                                        i++) {
+                                      if (answer.toString() ==
+                                          optionList[i].toString()) {
+                                        newindex = i;
+                                      }
+                                    }
+                                    optionColor[newindex] = Colors.green;
+                                    if (answer.toString() ==
+                                        optionList[index].toString()) {
+                                      optionColor[index] = Colors.green;
+                                      point += 10;
+                                    } else {
+                                      optionColor[index] = Colors.red;
+                                    }
+
+                                    if (currentQuestionIndex <
+                                        data.length - 1) {
+                                      Future.delayed(const Duration(seconds: 1),
+                                          () {
+                                        gotoNextQuestion();
+                                      });
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: ResultScreen(
+                                              points: point.toString(),
+                                              length:
+                                                  (data.length * 10).toString(),
+                                            ),
+                                            type: PageTransitionType.fade,
+                                            duration:
+                                                const Duration(seconds: 1)),
+                                      );
+                                      timer!.cancel();
+                                    }
+                                  });
+                                }
                               },
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 15),
